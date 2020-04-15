@@ -10,9 +10,9 @@ jobs:
   hello:
     name: Hello
     runs-on: ubuntu-latest
-    env:
-      BRANCH: $(git rev-parse --abbrev-ref HEAD)
-      HASH: $(git rev-parse --short=7 HEAD)
     steps:
-    - run: echo "Branch $BRANCH Hash $HASH"
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run command
+      run: make status
 
