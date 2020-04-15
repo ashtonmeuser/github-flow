@@ -1,14 +1,12 @@
-name: Pushed Tag
+name: Build
 on:
   push:
-    branches:
-      - '*'
     tags:
-      - '*'
+      - 'dev'
 
 jobs:
-  hello:
-    name: Hello
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
