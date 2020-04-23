@@ -2,8 +2,10 @@ name: Promote
 on:
   push:
     tags:
-      - 'test'
       - 'prod'
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   promote:
@@ -13,5 +15,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run command
-        run: make status
+        run: make promote-image
 
