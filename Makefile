@@ -1,4 +1,4 @@
-# = Recursive lazy set, := Immediate recursive set, :? Lazy set if absent
+# = Recursive lazy set, := Immediate recursive set, =? Lazy set if absent
 .DEFAULT_GOAL:=status
 BRANCH?=$(shell git rev-parse --abbrev-ref HEAD)
 REF?=$(shell git rev-parse --short HEAD)
@@ -23,7 +23,8 @@ tag-prod:
 ##########################################
 
 status:
-	@echo "Branch: $(BRANCH), Hash: $(REF)"
+	@git fetch --tags
+	@echo "Branch: $(BRANCH)\nHash: $(REF)\nVersion: $(VERSION)\nNext: $(NEXT)"
 
 list-hashes:
 	@git log --abbrev --oneline
@@ -37,8 +38,6 @@ list-tags:
 
 promote-image:
 	@docker pull $(DOCKER_USERNAME)/github-flow:$(REF)
-	push-image REF=$(NEXT)
-	tag-release
 	@echo "Image exists, do a promotion!"
 
 push-image:
@@ -47,6 +46,6 @@ push-image:
 	@docker push $(DOCKER_USERNAME)/github-flow:$(REF)
 
 tag-release:
-	@git tag -fam "Tagging release $(NEXT)" $(NEXT)^{}
+	@git tag -fam "Tagging release $(NEXT)" $(NEXT) $(REF)^{}
 	@git push --force origin refs/tags/$(NEXT):refs/tags/$(NEXT)
 

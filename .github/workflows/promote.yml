@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Run command
-        run: make promote-image
+      - name: Fetch Tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - name: Run promote
+        run: |
+          make status
+          make tag-release
 

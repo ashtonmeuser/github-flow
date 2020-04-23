@@ -14,5 +14,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Run command
-      run: make push-image
+    - name: Fetch Tags
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - name: Run build
+      run: |
+        make status
+        make push-image
