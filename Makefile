@@ -23,7 +23,6 @@ tag-prod:
 ##########################################
 
 status:
-	@git fetch --tags
 	@echo "Branch: $(BRANCH)\nHash: $(REF)\nVersion: $(VERSION)\nNext: $(NEXT)"
 
 list-hashes:
@@ -46,6 +45,6 @@ push-image:
 	@docker push $(DOCKER_USERNAME)/github-flow:$(REF)
 
 tag-release:
-	@git tag -fam "Tagging release $(NEXT)" $(NEXT) $(REF)^{}
+	@git tag -f $(NEXT) $(REF)^{}
 	@git push --force origin refs/tags/$(NEXT):refs/tags/$(NEXT)
 
