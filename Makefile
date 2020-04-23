@@ -36,7 +36,8 @@ list-tags:
 ##########################################
 
 promote-image:
-	@docker inspect image $(DOCKER_USERNAME)/github-flow:$(REF) --format "{{index .RepoTags 0}}"
+	@docker pull $(DOCKER_USERNAME)/github-flow:$(REF)
+	push-image REF=$(NEXT)
 	tag-release
 	@echo "Image exists, do a promotion!"
 
@@ -46,6 +47,6 @@ push-image:
 	@docker push $(DOCKER_USERNAME)/github-flow:$(REF)
 
 tag-release:
-	@git tag -fa dev -m "Deploying $(BRANCH):$(REF) to dev env" $(REF)^{}
-	@git push --force origin refs/tags/dev:refs/tags/dev
+	@git tag -fam "Tagging release $(NEXT)" $(NEXT)^{}
+	@git push --force origin refs/tags/$(NEXT):refs/tags/$(NEXT)
 
