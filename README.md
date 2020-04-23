@@ -74,4 +74,8 @@ status      |           | Print the current branch and commit hash.
 list-hashes |           | List commit hashes with associated tags and commit messages.
 list-tags   |           | List tags with associated commit hashes.
 
+## Updates to Trigger Actions
 
+Adding updates to add commits and test the workflow. Please ignore. 
+
+- 2020-04-23 #1
